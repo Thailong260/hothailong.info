@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HỒ THÁI LONG - Lập trình viên Web Sáng Tạo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text-light: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent-neon: #00f5d4;
+            --accent-glow: rgba(0, 245, 212, 0.3);
+            --secondary-accent: #ff4777;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-card); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-neon); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00cba9; }
+
+        .neon-text { color: var(--accent-neon); text-shadow: 0 0 5px var(--accent-neon), 0 0 10px var(--accent-neon), 0 0 15px var(--accent-glow); }
+        .neon-border { border: 1px solid var(--accent-neon); box-shadow: 0 0 8px var(--accent-glow); }
+        .neon-button {
+            background-color: transparent;
+            color: var(--accent-neon);
+            border: 2px solid var(--accent-neon);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 3px var(--accent-glow);
+        }
+        .neon-button:hover {
+            background-color: var(--accent-neon);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--accent-neon), 0 0 25px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+        .secondary-neon-button {
+            background-color: var(--secondary-accent);
+            color: var(--bg-dark);
+            border: 2px solid var(--secondary-accent);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(255, 71, 119, 0.4);
+        }
+        .secondary-neon-button:hover {
+            background-color: transparent;
+            color: var(--secondary-accent);
+            box-shadow: 0 0 15px var(--secondary-accent), 0 0 25px rgba(255, 71, 119, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .glassmorphic-card {
+            background: rgba(26, 26, 26, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            border: 1px solid rgba(0, 245, 212, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 245, 212, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glassmorphic-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px 0 rgba(0, 245, 212, 0.18);
+        }
+
+        .section-title-modern {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+            background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-bottom: 0.5rem;
+        }
+        .section-subtitle-modern {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        header {
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 245, 212, 0.15);
+        }
+        .nav-link-modern {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-link-modern:hover, .nav-link-modern.active {
+            color: var(--accent-neon);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+        .nav-link-modern::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-neon);
+            transition: width 0.3s ease;
+        }
+        .nav-link-modern:hover::after, .nav-link-modern.active::after {
+            width: 70%;
+        }
+
+        .hamburger div { width: 25px; height: 2px; background-color: var(--text-light); margin: 6px 0; transition: all 0.3s ease; border-radius: 1px; }
+        .hamburger.open .bar1 { transform: rotate(-45deg) translate(-6px, 6px); }
+        .hamburger.open .bar2 { opacity: 0; }
+        .hamburger.open .bar3 { transform: rotate(45deg) translate(-6px, -7px); }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .stagger-children.is-visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        .modal-content { background-color: var(--bg-card); margin: 5% auto; padding: 20px; border-radius: 1rem; width: 90%; max-width: 700px; position: relative; box-shadow: 0 8px 32px 0 rgba(0, 245, 212, 0.15); animation: fadeInModal 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); border: 1px solid rgba(0, 245, 212, 0.25); }
+        @keyframes fadeInModal { from { opacity: 0; transform: translateY(-30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .close-button { color: var(--text-muted); position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; font-weight: bold; transition: color 0.3s, transform 0.3s; }
+        .close-button:hover, .close-button:focus { color: var(--accent-neon); text-decoration: none; cursor: pointer; transform: scale(1.1); }
+        #cv-image-container img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+        .modal-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            text-align: center;
+            word-break: break-word;
+        }
+        @media (max-width: 640px) {
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 3px; background-color: var(--accent-neon); top: 0; bottom: 0; left: 50%; margin-left: -1.5px; opacity: 0.3; }
+        .timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--bg-dark); border: 3px solid var(--accent-neon); top: 15px; border-radius: 50%; z-index: 1; box-shadow: 0 0 10px var(--accent-glow); }
+        .timeline-left { left: 0; }
+        .timeline-right { left: 50%; }
+        .timeline-left::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px; border: medium solid var(--accent-neon); border-width: 10px 0 10px 10px; border-color: transparent transparent transparent var(--accent-neon); opacity: 0.6; }
+        .timeline-right::before { content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px; border: medium solid var(--accent-neon); border-width: 10px 10px 10px 0; border-color: transparent var(--accent-neon) transparent transparent; opacity: 0.6; }
+        .timeline-right::after { left: -10px; }
+        .timeline-content { padding: 20px 30px; background-color: var(--bg-card); border: 1px solid rgba(0, 245, 212, 0.2); border-radius: 8px; position: relative; box-shadow: 0 4px 15px rgba(0, 245, 212, 0.08); }
+        .timeline-content h3 { color: var(--accent-neon); font-weight: 700; margin-bottom: 0.5rem; font-size: 1.25rem; }
+        .timeline-content p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .timeline-content .date { font-size: 0.8rem; font-weight: 500; color: var(--secondary-accent); margin-bottom: 0.5rem; display: block; }
+        .timeline-content ul { list-style: none; padding-left: 0; margin-top: 0.5rem; }
+        .timeline-content ul li { padding-left: 1.2em; position: relative; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+        .timeline-content ul li::before { content: "\f105"; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: var(--accent-neon); }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 10px; }
+            .timeline-item { width: 100%; padding-left: 40px; padding-right: 15px; }
+            .timeline-item::before { left: 25px; border-width: 10px 10px 10px 0; border-color: transparent var(--accent-neon) transparent transparent; }
+            .timeline-left::after, .timeline-right::after { left: 0px; }
+            .timeline-right { left: 0%; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-accent': 'var(--accent-neon)',
+                        'secondary-accent': 'var(--secondary-accent)',
+                        'bg-dark': 'var(--bg-dark)',
+                        'bg-card': 'var(--bg-card)',
+                        'text-light': 'var(--text-light)',
+                        'text-muted': 'var(--text-muted)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s infinite ease-in-out',
+                        'slide-in-bottom': 'slideInBottom 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 5px var(--accent-glow), 0 0 10px var(--accent-glow)' },
+                            '50%': { boxShadow: '0 0 15px var(--accent-neon), 0 0 25px var(--accent-neon)' },
+                        },
+                        slideInBottom: {
+                            '0%': { transform: 'translateY(50px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="dark">
+
+    <header class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl md:text-3xl font-bold tracking-tight text-text-light hover:text-neon-accent transition-colors">
+                HỒ THÁI LONG
+            </a>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="hamburger focus:outline-none" aria-label="Mở menu">
+                    <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div>
+                </button>
+            </div>
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <a href="#hero" class="nav-link-modern active">Trang chủ</a>
+                <a href="#about" class="nav-link-modern">Giới thiệu</a>
+                <a href="#experience" class="nav-link-modern">Kinh nghiệm</a>
+                <a href="#projects" class="nav-link-modern">Dự án</a>
+                <a href="#skills" class="nav-link-modern">Kỹ năng</a>
+                <a href="#education" class="nav-link-modern">Học vấn</a>
+                <a href="#contact" class="nav-link-modern">Liên hệ</a>
+            </nav>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-bg-card/95 backdrop-blur-sm">
+            <nav class="flex flex-col items-center space-y-4 py-6">
+                <a href="#hero" class="text-text-muted hover:text-neon-accent text-lg font-medium">Trang chủ</a>
+                <a href="#about" class="text-text-muted hover:text-neon-accent text-lg font-medium">Giới thiệu</a>
+                <a href="#experience" class="text-text-muted hover:text-neon-accent text-lg font-medium">Kinh nghiệm</a>
+                <a href="#projects" class="text-text-muted hover:text-neon-accent text-lg font-medium">Dự án</a>
+                <a href="#skills" class="text-text-muted hover:text-neon-accent text-lg font-medium">Kỹ năng</a>
+                <a href="#education" class="text-text-muted hover:text-neon-accent text-lg font-medium">Học vấn</a>
+                <a href="#contact" class="text-text-muted hover:text-neon-accent text-lg font-medium">Liên hệ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-20 md:pt-24">
+        <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden fade-in-section is-visible">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);"></div>
+            <div class="container mx-auto px-6 text-center z-10">
+                <div class="relative w-36 h-36 md:w-48 md:h-48 mx-auto mb-8 animate-slide-in-bottom" style="animation-delay: 0.2s;">
+                    <img src="https://i.imgur.com/1B2f0MN.jpeg" alt="[Hình ảnh của Hồ Thái Long]"
+                         class="rounded-full w-full h-full object-cover border-4 border-neon-accent shadow-lg animate-pulse-glow"
+                         onerror="this.onerror=null;this.src='https://placehold.co/150x150/00F5D4/0A0A0A?text=HTL&font=inter';">
+                    <div class="absolute inset-0 rounded-full border-2 border-neon-accent/50 animate-ping"></div>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-text-light animate-slide-in-bottom" style="animation-delay: 0.4s;">
+                    <span class="block">HỒ THÁI LONG</span>
+                    <span class="block neon-text text-3xl sm:text-4xl md:text-5xl mt-2">Lập trình viên</span>
+                </h1>
+                <p class="text-lg md:text-xl mb-10 text-text-muted max-w-2xl mx-auto animate-slide-in-bottom" style="animation-delay: 0.6s;">
+                    Với 6 năm kinh nghiệm, triển khai hơn 30 dự án, tôi mang đến giải pháp web sáng tạo và hiệu quả.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 animate-slide-in-bottom" style="animation-delay: 0.8s;">
+                    <a href="#projects" class="neon-button w-full sm:w-auto">Xem Dự Án</a>
+                    <a href="#contact" class="secondary-neon-button w-full sm:w-auto">Liên Hệ Ngay</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 md:py-32 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title-modern">Mục Tiêu Nghề Nghiệp</h2>
+                <p class="section-subtitle-modern">Đam mê và định hướng phát triển của tôi trong lĩnh vực công nghệ.</p>
+                <div class="glassmorphic-card p-8 md:p-12 text-center max-w-3xl mx-auto">
+                    <i class="fas fa-bullseye text-6xl neon-text mb-6"></i>
+                    <p class="text-lg md:text-xl text-text-muted leading-relaxed">
+                        Với 6 năm trong nghề lập trình, triển khai trực tiếp hơn 30 dự án, tôi mong muốn ứng tuyển vào vị trí Senior của Công ty để có thể áp dụng những kiến thức, kinh nghiệm lập trình của bản thân để nâng cấp sản phẩm và mang lại những giá trị hữu ích cho doanh nghiệp. Đồng thời, mục tiêu phát triển trong vòng 2 năm tới của tôi sẽ trở thành một Lead giỏi.
+                    </p>
+                    </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20 md:py-32 bg-bg-card fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title-modern">Kinh Nghiệm Làm Việc</h2>
+                <p class="section-subtitle-modern">Hành trình chuyên môn qua các vị trí và dự án thực tế.</p>
+                <div class="timeline stagger-children">
+                    <div class="timeline-item timeline-left">
+                        <div class="timeline-content glassmorphic-card">
+                            <h3>FRONT END DEVELOPER</h3>
+                            <span class="date">2021 - 2024 | Công ty XYZ TopCV</span>
+                            <ul>
+                                <li>Quản lý các dự án phát triển trang web từ thiết kế ban đầu cho đến hoàn thiện, tối ưu hóa khả năng tương thích đa trình duyệt và đa nền tảng.</li>
+                                <li>Tham gia đánh giá và thử nghiệm các tính năng mới.</li>
+                                <li>Hợp tác chặt chẽ với lập trình viên và khách hàng để đáp ứng yêu cầu dự án.</li>
+                                <li>Phát triển và tích hợp chủ đề tùy chỉnh vào WordPress, PHP-Fusion, Concrete5.</li>
+                                <li>Đào tạo khách hàng về quản lý nội dung trang web.</li>
+                                <li>Lập trình canvas HTML5 cho hoạt ảnh quảng cáo.</li>
+                                <li>Nghiên cứu, phát triển công nghệ mới cho sản phẩm dịch vụ.</li>
+                                <li>Hỗ trợ và review source code cho thành viên nhóm.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-right">
+                        <div class="timeline-content glassmorphic-card">
+                            <h3>FLUTTER DEVELOPER</h3>
+                            <span class="date">2019 - 2021 | Công ty DEF TopCV</span>
+                            <ul>
+                                <li>Phối hợp team lập trình và phát triển sản phẩm Mobile App.</li>
+                                <li>Lên kế hoạch và Submit App lên App Store (Apple, Google).</li>
+                                <li>Đưa ra giải pháp xử lý vấn đề trong quá trình phát triển.</li>
+                                <li>Sửa lỗi và cải thiện hiệu suất ứng dụng.</li>
+                                <li>Chịu trách nhiệm end-to-end cho các tính năng phát triển.</li>
+                                <li>Quyết định phương pháp lập trình và xử lý trong phát triển, vận hành.</li>
+                                <li>Xây dựng chiến lược phát triển sản phẩm cùng product team.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-left">
+                        <div class="timeline-content glassmorphic-card">
+                            <h3>WEB DEVELOPER</h3>
+                            <span class="date">2017 - 2019 | Công ty ABC TopCV</span>
+                            <ul>
+                                <li>Phát triển trang web thân thiện người dùng, tăng traffic và trải nghiệm.</li>
+                                <li>Bảo trì và cập nhật website cho khách hàng.</li>
+                                <li>Thiết kế layout website, cắt HTML & CSS cho sản phẩm marketing.</li>
+                                <li>Viết và hệ thống tài liệu phần mềm, thông số kỹ thuật.</li>
+                                <li>Làm nhiều dự án đồng thời với tiêu chuẩn và hiệu suất cao.</li>
+                                <li>Tham gia dự án phát triển trang web game trực tuyến lớn.</li>
+                                <li>Tích hợp website với Facebook, Twitter, YouTube.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-20 md:py-32 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title-modern">Dự Án Nổi Bật</h2>
+                <p class="section-subtitle-modern">Minh chứng cho năng lực và sự sáng tạo qua các sản phẩm thực tế.</p>
+                <div class="grid md:grid-cols-1 lg:grid-cols-1 gap-8 stagger-children max-w-3xl mx-auto">
+                    <div class="glassmorphic-card group">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 overflow-hidden rounded-t-xl md:rounded-l-xl md:rounded-tr-none h-56 md:h-auto">
+                                <img src="https://placehold.co/600x400/1a1a1a/00F5D4?text=DVC+Project&font=inter"
+                                     alt="[Hình ảnh dự án Thiết kế Website Bán Hàng cho Công ty DVC]"
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/1a1a1a/ff4777?text=Lỗi+Ảnh+DVC&font=inter';">
+                            </div>
+                            <div class="md:w-2/3 p-6">
+                                <h3 class="text-xl lg:text-2xl font-bold text-text-light mb-2">Thiết kế Website Bán Hàng cho Công ty DVC</h3>
+                                <p class="text-sm text-text-muted mb-1"><strong class="text-neon-accent">Khách hàng:</strong> Công ty DVC IPA</p>
+                                <p class="text-sm text-text-muted mb-1"><strong class="text-neon-accent">Thời gian:</strong> 2018 - 2019 | <strong class="text-neon-accent">Team:</strong> 2 người</p>
+                                <p class="text-sm text-text-muted mb-3"><strong class="text-neon-accent">Vai trò:</strong> Lead Dự Án</p>
+                                <p class="text-sm text-text-muted mb-4 leading-relaxed">
+                                    Thu thập yêu cầu, thiết kế UI, xây dựng tính năng (quản lý sản phẩm, giỏ hàng, thanh toán), phát triển API, kiểm thử và triển khai.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Node.js</span>
+                                </div>
+                                <a href="#" class="text-neon-accent font-medium hover:underline">Xem chi tiết (nếu có) <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+        <style>.tech-tag { background-color: rgba(0, 245, 212, 0.1); color: var(--accent-neon); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }</style>
+
+        <section id="skills" class="py-20 md:py-32 bg-bg-card fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title-modern">Kỹ Năng</h2>
+                <p class="section-subtitle-modern">Công cụ và năng lực tôi sử dụng để kiến tạo giải pháp.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="stagger-children">
+                        <h3 class="text-2xl font-bold text-neon-accent mb-6 text-center md:text-left">Kỹ Năng Chuyên Môn</h3>
+                        <div class="space-y-4">
+                            <div class="skill-item-modern"><span>JavaScript, HTML, CSS, GitLab, Node.js</span><div class="skill-bar"><div style="width: 90%; background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));"></div></div></div>
+                            <div class="skill-item-modern"><span>SQL, NoSQL</span><div class="skill-bar"><div style="width: 85%; background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));"></div></div></div>
+                            <div class="skill-item-modern"><span>Frameworks (Vuejs, Angular, React)</span><div class="skill-bar"><div style="width: 80%; background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));"></div></div></div>
+                            <div class="skill-item-modern"><span>.NET, C++</span><div class="skill-bar"><div style="width: 70%; background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));"></div></div></div>
+                            <div class="skill-item-modern"><span>Phân tích & Thiết kế hệ thống</span><div class="skill-bar"><div style="width: 88%; background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));"></div></div></div>
+                            <div class="skill-item-modern"><span>Lập trình hướng đối tượng</span><div class="skill-bar"><div style="width: 92%; background: linear-gradient(90deg, var(--accent-neon), var(--secondary-accent));"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="stagger-children">
+                        <h3 class="text-2xl font-bold text-secondary-accent mb-6 text-center md:text-left">Kỹ Năng Mềm</h3>
+                        <ul class="list-none space-y-3">
+                            <li class="soft-skill-item"><i class="fas fa-check-circle mr-2 text-neon-accent"></i>Kỹ năng thuyết trình</li>
+                            <li class="soft-skill-item"><i class="fas fa-check-circle mr-2 text-neon-accent"></i>Kỹ năng giải quyết vấn đề</li>
+                            <li class="soft-skill-item"><i class="fas fa-check-circle mr-2 text-neon-accent"></i>Kỹ năng tự tìm tòi, tự học</li>
+                            <li class="soft-skill-item"><i class="fas fa-check-circle mr-2 text-neon-accent"></i>Kỹ năng giao tiếp</li>
+                            <li class="soft-skill-item"><i class="fas fa-check-circle mr-2 text-neon-accent"></i>Kỹ năng làm việc nhóm</li>
+                            <li class="soft-skill-item"><i class="fas fa-check-circle mr-2 text-neon-accent"></i>Kỹ năng quản lý dự án</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+            .skill-item-modern { margin-bottom: 1rem; }
+            .skill-item-modern span { display: block; color: var(--text-light); font-weight: 500; margin-bottom: 0.3rem; font-size: 0.95rem; }
+            .skill-bar { width: 100%; background-color: rgba(0, 245, 212, 0.1); border-radius: 5px; overflow: hidden; height: 10px; }
+            .skill-bar div { height: 100%; border-radius: 5px; transition: width 1s ease-out; }
+            .soft-skill-item { color: var(--text-muted); font-size: 1rem; display: flex; align-items: center; }
+        </style>
+
+        <section id="education" class="py-20 md:py-32 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title-modern">Học Vấn & Thành Tích</h2>
+                <p class="section-subtitle-modern">Nền tảng kiến thức và những ghi nhận trong quá trình học tập và làm việc.</p>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="glassmorphic-card p-8 stagger-children">
+                        <h3 class="text-2xl font-bold text-neon-accent mb-4"><i class="fas fa-graduation-cap mr-3"></i>Học Vấn</h3>
+                        <p class="text-xl font-semibold text-text-light">Công Nghệ Thông Tin (2014 - 2017)</p>
+                        <p class="text-text-muted mb-1">Trường Cao Đẳng Nghề Công Nghệ Thông Tin - Biên Hòa</p>
+                        <ul class="list-disc list-inside text-text-muted space-y-1 pl-1 mt-2">
+                            <li>Tốt nghiệp loại Giỏi</li>
+                            <li>Đạt học bổng 2 năm 2016 và 2017</li>
+                        </ul>
+                    </div>
+                    <div class="glassmorphic-card p-8 stagger-children">
+                        <h3 class="text-2xl font-bold text-secondary-accent mb-4"><i class="fas fa-award mr-3"></i>Danh Hiệu & Chứng Chỉ</h3>
+                        <p class="text-lg font-semibold text-text-light mb-2">Danh Hiệu:</p>
+                        <ul class="list-disc list-inside text-text-muted space-y-1 pl-1 mb-4">
+                            <li>Nhân viên xuất sắc của năm công ty DVC IPA (2023)</li>
+                            <li>Nhân viên cống hiến của năm (2020)</li>
+                        </ul>
+                        <p class="text-lg font-semibold text-text-light mb-2">Chứng Chỉ:</p>
+                        <ul class="list-disc list-inside text-text-muted space-y-1 pl-1">
+                            <li>PHP, MySQL, JavaScript (2016)</li>
+                            <li>Laravel, Framework, jQuery, React (2017)</li>
+                            <li>Linux, Redis, MongoDB (2018)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 md:py-32 bg-bg-card fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title-modern">Kết Nối Với Tôi</h2>
+                <p class="section-subtitle-modern">Sẵn sàng thảo luận về dự án của bạn hoặc chỉ đơn giản là muốn nói lời chào? Đừng ngần ngại!</p>
+                <div class="max-w-xl mx-auto glassmorphic-card p-8 md:p-10">
+                    <form id="contact-form-modern" action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name-modern" class="block text-sm font-medium text-text-muted mb-1">Họ và Tên</label>
+                            <input type="text" name="name" id="name-modern" required placeholder="Tên của bạn" class="contact-input-modern" aria-label="Họ và tên của bạn">
+                        </div>
+                        <div>
+                            <label for="email-modern" class="block text-sm font-medium text-text-muted mb-1">Địa chỉ Email</label>
+                            <input type="email" name="email" id="email-modern" required placeholder="longlongnuocngoai@gmail.com" class="contact-input-modern" aria-label="Địa chỉ email của bạn">
+                        </div>
+                        <div>
+                            <label for="message-modern" class="block text-sm font-medium text-text-muted mb-1">Lời nhắn</label>
+                            <textarea name="message" id="message-modern" rows="5" required placeholder="Hãy cho tôi biết ý tưởng của bạn..." class="contact-input-modern resize-none" aria-label="Lời nhắn của bạn"></textarea>
+                        </div>
+                        <div class="text-center pt-2">
+                            <button type="submit" class="neon-button w-full sm:w-auto">Gửi Tin Nhắn <i class="fas fa-paper-plane ml-2"></i></button>
+                        </div>
+                    </form>
+                    <p id="form-status-modern" class="mt-6 text-center text-sm"></p>
+                    <div class="mt-8 text-center text-text-muted">
+                        <p class="mb-2">Hoặc liên hệ trực tiếp:</p>
+                        <p><i class="fas fa-phone-alt mr-2 text-neon-accent"></i>0348430700</p>
+                        <p><i class="fas fa-map-marker-alt mr-2 text-neon-accent"></i>Biên Hòa - Đồng Nai</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+            .contact-input-modern {
+                width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem;
+                background-color: rgba(255,255,255,0.05);
+                border: 1px solid rgba(0, 245, 212, 0.2);
+                color: var(--text-light);
+                transition: border-color 0.3s, box-shadow 0.3s;
+            }
+            .contact-input-modern::placeholder { color: rgba(160, 160, 160, 0.6); }
+            .contact-input-modern:focus {
+                border-color: var(--accent-neon); outline: none;
+                box-shadow: 0 0 0 2px rgba(0, 245, 212, 0.3);
+            }
+        </style>
+    </main>
+
+    <footer class="py-12 mt-12 border-t border-neon-accent/20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6 flex justify-center space-x-6">
+                <a href="https://www.facebook.com/profile.php?id=100013878992025" target="_blank" rel="noopener noreferrer" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://github.com/longdev2k1" target="_blank" rel="noopener noreferrer" class="footer-social-link"><i class="fab fa-github"></i></a>
+                <a href="mailto:longlongnuocngoai@gmail.com" class="footer-social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+            <style>.footer-social-link { color: var(--text-muted); font-size: 1.5rem; transition: color 0.3s, transform 0.3s; } .footer-social-link:hover { color: var(--accent-neon); transform: translateY(-2px) scale(1.1); }</style>
+            <p class="text-text-muted text-sm">© <span id="currentYear"></span> HỒ THÁI LONG. Mọi ý tưởng đều được chào đón.</p>
+            <p class="text-xs text-text-muted/70 mt-2">Thiết kế với <i class="fas fa-heart text-secondary-accent"></i> và Tailwind CSS.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-xl opacity-0 invisible transition-all duration-300 transform hover:scale-110 focus:outline-none neon-border bg-bg-card/80 backdrop-blur-sm text-neon-accent hover:bg-neon-accent hover:text-bg-dark" aria-label="Cuộn lên đầu trang"><i class="fas fa-arrow-up"></i></button>
+
+    <div id="cvModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeCvModal" aria-label="Đóng">×</span>
+            <h3 class="modal-title">Sơ Yếu Lý Lịch - HỒ THÁI LONG</h3>
+            <div id="cv-image-container" class="my-4 max-h-[70vh] overflow-y-auto border border-neon-accent/30 rounded-md p-2">
+                <img src="https://placehold.co/800x1131/1a1a1a/00F5D4?text=CV+Của+Hồ+Thái+Long%0A(Thay+thế+bằng+hình+ảnh+CV+thực+tế+của+bạn)&font=inter"
+                     alt="CV Hồ Thái Long - Hình ảnh mẫu"
+                     onerror="this.onerror=null;this.src='https://placehold.co/800x1131/1a1a1a/ff4777?text=Lỗi+Tải+CV&font=inter';">
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mobile Menu ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerButton = document.querySelector('.hamburger');
+        if (mobileMenuButton && mobileMenu && hamburgerButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                hamburgerButton.classList.toggle('open');
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.setAttribute('aria-hidden', isExpanded);
+            });
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerButton.classList.remove('open');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.setAttribute('aria-hidden', 'true');
+                });
+            });
+        }
+
+        // --- Active Nav Link on Scroll ---
+        const sectionsForNav = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('header nav a.nav-link-modern');
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu nav a');
+
+        function changeNavActiveState(targetId) {
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${targetId}`);
+            });
+            mobileNavLinks.forEach(link => {
+                link.classList.toggle('text-neon-accent', link.getAttribute('href') === `#${targetId}`);
+                link.classList.toggle('text-text-muted', link.getAttribute('href') !== `#${targetId}`);
+            });
+        }
+
+        if (sectionsForNav.length > 0 && navLinks.length > 0) {
+            const navObserverOptions = { root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0 };
+            const navObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        changeNavActiveState(entry.target.id);
+                    }
+                });
+            }, navObserverOptions);
+            sectionsForNav.forEach(section => navObserver.observe(section));
+        }
+
+        // --- Smooth Scrolling with Header Offset ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const hrefAttribute = this.getAttribute('href');
+                if (hrefAttribute && hrefAttribute.startsWith('#') && hrefAttribute.length > 1) {
+                    const targetElement = document.querySelector(hrefAttribute);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const headerEl = document.querySelector('header');
+                        const headerOffset = headerEl ? headerEl.offsetHeight : 70; // Default offset if header not found
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                        // Update nav active state immediately on click for desktop
+                        if (window.innerWidth >= 768) { // md breakpoint
+                            changeNavActiveState(targetElement.id);
+                        }
+                    }
+                }
+            });
+        });
+
+        // --- Scroll Reveal Animation (Fade In & Stagger) ---
+        const animatedElements = document.querySelectorAll('.fade-in-section, .stagger-children');
+
+        if (animatedElements.length > 0) {
+            const revealObserverOptions = { root: null, rootMargin: '0px 0px -100px 0px', threshold: 0.1 };
+            const revealObserver = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        if (entry.target.classList.contains('stagger-children')) {
+                            Array.from(entry.target.children).forEach((child, index) => {
+                                child.style.transitionDelay = `${index * 120}ms`; // Stagger effect
+                            });
+                        }
+                        observerInstance.unobserve(entry.target); // Unobserve after animation
+                    }
+                });
+            }, revealObserverOptions);
+            animatedElements.forEach(el => revealObserver.observe(el));
+        }
+        
+        // --- Skill bar animation on scroll ---
+        const skillBars = document.querySelectorAll('.skill-bar > div');
+        const skillSection = document.getElementById('skills');
+        let skillsAnimated = false; // Flag to ensure animation runs only once
+
+        if (skillSection && skillBars.length > 0) {
+            const skillObserverOptions = { root: null, threshold: 0.3 }; // Trigger when 30% of section is visible
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !skillsAnimated) {
+                        skillBars.forEach(bar => {
+                            // Get width from its own style attribute (inline CSS)
+                            const targetWidth = bar.style.width; 
+                            bar.style.width = '0%'; // Reset for animation
+                            setTimeout(() => { // Apply target width after a short delay for transition
+                                bar.style.width = targetWidth;
+                            }, 100);
+                        });
+                        skillsAnimated = true; // Set flag to true
+                        // skillObserver.unobserve(skillSection); // Optionally unobserve
+                    }
+                });
+            }, skillObserverOptions);
+            skillObserver.observe(skillSection);
+        }
+
+
+        // --- Back to Top Button ---
+        const backToTopButton = document.getElementById('back-to-top');
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 400) { // Show button after scrolling 400px
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+
+        // --- Contact Form ---
+        const contactForm = document.getElementById('contact-form-modern');
+        const formStatus = document.getElementById('form-status-modern');
+        if (contactForm && formStatus) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = contactForm.querySelector('#name-modern').value.trim();
+                const email = contactForm.querySelector('#email-modern').value.trim();
+                const message = contactForm.querySelector('#message-modern').value.trim();
+
+                if (!name || !email || !message) {
+                    formStatus.textContent = 'Vui lòng điền đầy đủ thông tin.';
+                    formStatus.className = 'mt-6 text-center text-sm text-red-400'; // Use a red color for errors
+                    return;
+                }
+                // Basic email validation
+                if (!/^\S+@\S+\.\S+$/.test(email)) {
+                     formStatus.textContent = 'Vui lòng nhập địa chỉ email hợp lệ.';
+                     formStatus.className = 'mt-6 text-center text-sm text-red-400';
+                     return;
+                }
+
+                formStatus.textContent = 'Đang gửi tin nhắn...';
+                formStatus.className = 'mt-6 text-center text-sm text-neon-accent';
+                // Simulate form submission
+                setTimeout(() => {
+                    formStatus.textContent = 'Cảm ơn bạn! Tin nhắn đã được gửi.';
+                    formStatus.className = 'mt-6 text-center text-sm text-green-400'; // Use a green color for success
+                    contactForm.reset(); // Clear the form
+                }, 2000);
+            });
+        }
+        // Set current year in footer
+        const currentYearEl = document.getElementById('currentYear');
+        if (currentYearEl) {
+            currentYearEl.textContent = new Date().getFullYear();
+        }
+
+        // --- CV Modal Logic ---
+        const cvModal = document.getElementById('cvModal');
+        // const viewCvBtnAbout = document.getElementById('view-cv-btn-about'); // Button removed, so this line is commented out/removed
+        const closeCvModalBtn = document.getElementById('closeCvModal');
+
+        // Function to open the CV modal (can be called from other places if needed)
+        function openCvModal() {
+            if (cvModal) {
+                cvModal.style.display = "block";
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+        // Function to close the CV modal
+        function closeCvModal() {
+            if (cvModal) {
+                cvModal.style.display = "none";
+                document.body.style.overflow = 'auto'; // Restore background scrolling
+            }
+        }
+
+        // if (viewCvBtnAbout) viewCvBtnAbout.onclick = openCvModal; // Button removed, so this line is commented out/removed
+        if (closeCvModalBtn) closeCvModalBtn.onclick = closeCvModal;
+
+        // Close modal if clicked outside of the modal content or if Escape key is pressed
+        if (cvModal) {
+            window.addEventListener('click', (event) => { if (event.target == cvModal) closeCvModal(); });
+            window.addEventListener('keydown', (event) => { if (event.key === 'Escape' && cvModal.style.display === 'block') closeCvModal(); });
+        }
+    });
+    </script>
+</body>
+</html>
